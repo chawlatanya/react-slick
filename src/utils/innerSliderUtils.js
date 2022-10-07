@@ -6,10 +6,10 @@ export function clamp(number, lowerBound, upperBound) {
 
 export const safePreventDefault = event => {
   const passiveEvents = ["onTouchStart", "onTouchMove", "onWheel"];
-  if(!passiveEvents.includes(event._reactName)) {
+  if (!passiveEvents.includes(event._reactName)) {
     event.preventDefault();
   }
-}
+};
 
 export const getOnDemandLazySlides = spec => {
   let onDemandSlides = [];
@@ -386,9 +386,12 @@ export const swipeMove = (e, spec) => {
   let touchSwipeLength = touchObject.swipeLength;
   if (!infinite) {
     if (
-      (currentSlide === 0 && (swipeDirection === "right" || swipeDirection === "down")) ||
-      (currentSlide + 1 >= dotCount && (swipeDirection === "left" || swipeDirection === "up")) ||
-      (!canGoNext(spec) && (swipeDirection === "left" || swipeDirection === "up"))
+      (currentSlide === 0 &&
+        (swipeDirection === "right" || swipeDirection === "down")) ||
+      (currentSlide + 1 >= dotCount &&
+        (swipeDirection === "left" || swipeDirection === "up")) ||
+      (!canGoNext(spec) &&
+        (swipeDirection === "left" || swipeDirection === "up"))
     ) {
       touchSwipeLength = touchObject.swipeLength * edgeFriction;
       if (edgeDragged === false && onEdge) {
@@ -722,7 +725,8 @@ export const getTrackLeft = spec => {
     }
     // shift current slide to center of the frame
     if (centerMode) {
-      slidesToOffset += parseInt(slidesToShow / 2);
+      if (slideCount <= 3) slidesToOffset += parseInt(slidesToShow / 2) + 1;
+      else slidesToOffset += parseInt(slidesToShow / 2);
     }
   } else {
     if (
@@ -732,7 +736,8 @@ export const getTrackLeft = spec => {
       slidesToOffset = slidesToShow - (slideCount % slidesToScroll);
     }
     if (centerMode) {
-      slidesToOffset = parseInt(slidesToShow / 2);
+      if (slideCount <= 3) slidesToOffset = parseInt(slidesToShow / 2) + 1;
+      else slidesToOffset = parseInt(slidesToShow / 2);
     }
   }
   slideOffset = slidesToOffset * slideWidth;
@@ -793,12 +798,12 @@ export const getTotalSlides = spec =>
     : getPreClones(spec) + spec.slideCount + getPostClones(spec);
 export const siblingDirection = spec => {
   if (spec.targetSlide > spec.currentSlide) {
-    if (spec.targetSlide > spec.currentSlide + slidesOnRight(spec)) {
+    if (spec.targetSlide >= spec.currentSlide + slidesOnRight(spec)) {
       return "left";
     }
     return "right";
   } else {
-    if (spec.targetSlide < spec.currentSlide - slidesOnLeft(spec)) {
+    if (spec.targetSlide <= spec.currentSlide - slidesOnLeft(spec)) {
       return "right";
     }
     return "left";
