@@ -138,7 +138,7 @@ const renderSlides = spec => {
     if (spec.infinite && spec.fade === false) {
       let preCloneNo = childrenCount - index;
       if (
-        childrenCount <= 3 ||
+        childrenCount <= spec.slidesToShow ||
         (preCloneNo <= getPreClones(spec) &&
           childrenCount !== spec.slidesToShow)
       ) {
@@ -165,7 +165,10 @@ const renderSlides = spec => {
         );
       }
 
-      if (childrenCount <= 3 || childrenCount !== spec.slidesToShow) {
+      if (
+        childrenCount <= spec.slidesToShow ||
+        childrenCount !== spec.slidesToShow
+      ) {
         key = childrenCount + index;
         if (key < endIndex) {
           child = elem;

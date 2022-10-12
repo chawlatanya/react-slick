@@ -725,7 +725,8 @@ export const getTrackLeft = spec => {
     }
     // shift current slide to center of the frame
     if (centerMode) {
-      if (slideCount <= 3) slidesToOffset += parseInt(slidesToShow / 2) + 1;
+      if (slideCount <= slidesToShow)
+        slidesToOffset += parseInt(slidesToShow / 2) + 1;
       else slidesToOffset += parseInt(slidesToShow / 2);
     }
   } else {
@@ -736,7 +737,8 @@ export const getTrackLeft = spec => {
       slidesToOffset = slidesToShow - (slideCount % slidesToScroll);
     }
     if (centerMode) {
-      if (slideCount <= 3) slidesToOffset = parseInt(slidesToShow / 2) + 1;
+      if (slideCount <= slidesToShow)
+        slidesToOffset = parseInt(slidesToShow / 2) + 1;
       else slidesToOffset = parseInt(slidesToShow / 2);
     }
   }
